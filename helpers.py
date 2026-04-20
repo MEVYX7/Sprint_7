@@ -1,9 +1,12 @@
-from data.payload_builders import build_order_payload, generate_random_string
-from flows.courier_flow import login_courier_and_get_id, register_new_courier_and_get_id
+import random
+import string
 
-__all__ = [
-    "build_order_payload",
-    "generate_random_string",
-    "login_courier_and_get_id",
-    "register_new_courier_and_get_id",
-]
+
+def generate_random_string(length):
+    letters = string.ascii_lowercase
+    random_chars = []
+    current_length = 0
+    while current_length < length:
+        random_chars.append(random.choice(letters))
+        current_length += 1
+    return "".join(random_chars)

@@ -33,20 +33,6 @@ def courier_payload():
 
 
 @pytest.fixture
-def courier_payload_without_login():
-    payload = build_courier_payload()
-    del payload["login"]
-    return payload
-
-
-@pytest.fixture
-def courier_payload_without_password():
-    payload = build_courier_payload()
-    del payload["password"]
-    return payload
-
-
-@pytest.fixture
 def created_courier_id(courier_payload):
     response = CourierMethods.create_courier(courier_payload)
     courier_id = None

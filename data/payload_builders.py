@@ -1,38 +1,19 @@
-import random
-import string
 from datetime import date, timedelta
-
-
-def generate_random_string(length):
-    letters = string.ascii_lowercase
-    random_chars = []
-    current_length = 0
-    while current_length < length:
-        random_chars.append(random.choice(letters))
-        current_length += 1
-    return "".join(random_chars)
+from data.test_data import faker, COURIER_CREDENTIAL_LENGTH, ORDER_BASE_PAYLOAD
 
 
 def build_courier_payload():
     return {
-        "login": generate_random_string(10),
-        "password": generate_random_string(10),
-        "firstName": generate_random_string(10),
+        "login": faker.pystr(min_chars=COURIER_CREDENTIAL_LENGTH, max_chars=COURIER_CREDENTIAL_LENGTH).lower(),
+        "password": faker.pystr(min_chars=COURIER_CREDENTIAL_LENGTH, max_chars=COURIER_CREDENTIAL_LENGTH),
+        "firstName": faker.first_name(),
     }
 
 
 def build_order_payload(color=None):
     delivery_date = (date.today() + timedelta(days=1)).isoformat()
-    payload = {
-        "firstName": "Ivan",
-        "lastName": "Petrov",
-        "address": "Tverskaya St, 12, apt. 34",
-        "metroStation": 4,
-        "phone": "+79991234567",
-        "rentTime": 5,
-        "deliveryDate": delivery_date,
-        "comment": "Please call 10 minutes before delivery",
-    }
+    payload = dict(ORDER_BASE_PAYLOAD)
+    payload["deliveryDate"] = delivery_date
     if color is not None:
         payload["color"] = color
     return payload
